@@ -359,7 +359,7 @@ class TestWorkflowToolManageService:
         app, account, workflow = self._create_test_app_and_account(
             db_session_with_containers, mock_external_service_dependencies
         )
-
+        invalid_parameters = []
         # Attempt to create workflow tool with invalid parameters
         with pytest.raises(ValidationError) as exc_info:
             # Setup invalid workflow tool parameters (missing required fields)

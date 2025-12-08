@@ -835,10 +835,12 @@ class RagPipelineWorkflowRunListApi(Resource):
         """
         Get workflow run list
         """
-        query = WorkflowRunQuery.model_validate({
+        query = WorkflowRunQuery.model_validate(
+            {
                 "last_id": request.args.get("last_id"),
                 "limit": request.args.get("limit", type=int, default=20),
-            })
+            }
+        )
         args = {
             "last_id": str(query.last_id) if query.last_id else None,
             "limit": query.limit,

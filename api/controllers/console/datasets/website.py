@@ -65,7 +65,6 @@ class WebsiteCrawlStatusApi(Resource):
     @login_required
     @account_initialization_required
     def get(self, job_id: str):
-        
         args = WebsiteCrawlStatusQuery.model_validate(request.args.to_dict())
 
         # Create typed request and validate

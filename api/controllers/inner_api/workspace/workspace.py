@@ -40,7 +40,6 @@ class EnterpriseWorkspace(Resource):
         }
     )
     def post(self):
-        
         args = WorkspaceCreatePayload.model_validate(inner_api_ns.payload or {})
 
         account = db.session.query(Account).filter_by(email=args.owner_email).first()
@@ -82,7 +81,6 @@ class EnterpriseWorkspaceNoOwnerEmail(Resource):
         }
     )
     def post(self):
-        
         args = WorkspaceOwnerlessPayload.model_validate(inner_api_ns.payload or {})
 
         tenant = TenantService.create_tenant(args.name, is_from_dashboard=True)

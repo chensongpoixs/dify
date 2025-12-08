@@ -172,10 +172,12 @@ class SegmentApi(DatasetApiResource):
             except ProviderTokenNotInitError as ex:
                 raise ProviderNotInitializeError(ex.description)
 
-        args = SegmentListQuery.model_validate({
+        args = SegmentListQuery.model_validate(
+            {
                 "status": request.args.getlist("status"),
                 "keyword": request.args.get("keyword"),
-            })
+            }
+        )
 
         segments, total = SegmentService.get_segments(
             document_id=document_id,
@@ -412,11 +414,13 @@ class ChildChunkApi(DatasetApiResource):
         if not segment:
             raise NotFound("Segment not found.")
 
-        args = ChildChunkListQuery.model_validate({
+        args = ChildChunkListQuery.model_validate(
+            {
                 "limit": request.args.get("limit", default=20, type=int),
                 "keyword": request.args.get("keyword"),
                 "page": request.args.get("page", default=1, type=int),
-            })
+            }
+        )
 
         page = args.page
         limit = min(args.limit, 100)

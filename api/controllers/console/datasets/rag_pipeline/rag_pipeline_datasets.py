@@ -36,8 +36,6 @@ class CreateRagPipelineDatasetApi(Resource):
     @account_initialization_required
     @cloud_edition_billing_rate_limit_check("knowledge")
     def post(self):
-        
-
         payload = RagPipelineDatasetImportPayload.model_validate(console_ns.payload or {})
         current_user, current_tenant_id = current_account_with_tenant()
         # The role of the current user in the ta table must be admin, owner, or editor, or dataset_operator

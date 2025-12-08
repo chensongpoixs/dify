@@ -373,16 +373,16 @@ class TestWorkflowToolManageService:
                     }
                 )
             ]
-            WorkflowToolManageService.create_workflow_tool(
-                user_id=account.id,
-                tenant_id=account.current_tenant.id,
-                workflow_app_id=app.id,
-                name=fake.word(),
-                label=fake.word(),
-                icon={"type": "emoji", "emoji": "🔧"},
-                description=fake.text(max_nb_chars=200),
-                parameters=invalid_parameters,
-            )
+        WorkflowToolManageService.create_workflow_tool(
+            user_id=account.id,
+            tenant_id=account.current_tenant.id,
+            workflow_app_id=app.id,
+            name=fake.word(),
+            label=fake.word(),
+            icon={"type": "emoji", "emoji": "🔧"},
+            description=fake.text(max_nb_chars=200),
+            parameters=invalid_parameters,
+        )
 
         # Verify error message contains validation error
         assert "validation error" in str(exc_info.value).lower()

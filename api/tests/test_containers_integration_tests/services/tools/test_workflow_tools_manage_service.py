@@ -359,30 +359,28 @@ class TestWorkflowToolManageService:
         app, account, workflow = self._create_test_app_and_account(
             db_session_with_containers, mock_external_service_dependencies
         )
-        invalid_parameters = []
         # Attempt to create workflow tool with invalid parameters
         with pytest.raises(ValidationError) as exc_info:
             # Setup invalid workflow tool parameters (missing required fields)
-            invalid_parameters = [
-                WorkflowToolParameterConfiguration.model_validate(
-                    {
-                        "name": "input_text",
-                        # Missing description and form fields
-                        "type": "string",
-                        "required": True,
-                    }
-                )
-            ]
-        WorkflowToolManageService.create_workflow_tool(
-            user_id=account.id,
-            tenant_id=account.current_tenant.id,
-            workflow_app_id=app.id,
-            name=fake.word(),
-            label=fake.word(),
-            icon={"type": "emoji", "emoji": "🔧"},
-            description=fake.text(max_nb_chars=200),
-            parameters=invalid_parameters,
-        )
+            WorkflowToolManageService.create_workflow_tool(
+                user_id=account.id,
+                tenant_id=account.current_tenant.id,
+                workflow_app_id=app.id,
+                name=fake.word(),
+                label=fake.word(),
+                icon={"type": "emoji", "emoji": "🔧"},
+                description=fake.text(max_nb_chars=200),
+                parameters=[
+                    WorkflowToolParameterConfiguration.model_validate(
+                        {
+                            "name": "input_text",
+                            # Missing description and form fields
+                            "type": "string",
+                            "required": True,
+                        }
+                    )
+                ],
+            )
 
         # Verify error message contains validation error
         assert "validation error" in str(exc_info.value).lower()

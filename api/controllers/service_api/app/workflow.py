@@ -145,7 +145,7 @@ class WorkflowRunApi(Resource):
             raise NotWorkflowAppError()
 
         payload = WorkflowRunPayload.model_validate(service_api_ns.payload or {})
-        args = payload.model_dump(exclude_none=True)
+        args = payload.model_dump(strict=True, exclude_none=True)
         external_trace_id = get_external_trace_id(request)
         if external_trace_id:
             args["external_trace_id"] = external_trace_id
@@ -201,7 +201,7 @@ class WorkflowRunByIdApi(Resource):
             raise NotWorkflowAppError()
 
         payload = WorkflowRunPayload.model_validate(service_api_ns.payload or {})
-        args = payload.model_dump(exclude_none=True)
+        args = payload.model_dump(strict=True, exclude_none=True)
 
         # Add workflow_id to args for AppGenerateService
         args["workflow_id"] = workflow_id

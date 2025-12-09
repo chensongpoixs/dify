@@ -245,7 +245,7 @@ class RagPipelineDraftRunIterationNodeApi(Resource):
         current_user, _ = current_account_with_tenant()
 
         payload = NodeRunPayload.model_validate(console_ns.payload or {})
-        args = payload.model_dump(exclude_none=True)
+        args = payload.model_dump(strict=True, exclude_none=True)
 
         try:
             response = PipelineGenerateService.generate_single_iteration(
@@ -280,7 +280,7 @@ class RagPipelineDraftRunLoopNodeApi(Resource):
         current_user, _ = current_account_with_tenant()
 
         payload = NodeRunPayload.model_validate(console_ns.payload or {})
-        args = payload.model_dump(exclude_none=True)
+        args = payload.model_dump(strict=True, exclude_none=True)
 
         try:
             response = PipelineGenerateService.generate_single_loop(

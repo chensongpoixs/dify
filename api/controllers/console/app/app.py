@@ -609,6 +609,7 @@ class AppTraceApi(Resource):
     @edit_permission_required
     def post(self, app_id):
         # add app trace
+
         args = AppTracePayload.model_validate(console_ns.payload)
 
         OpsTraceManager.update_app_tracing_config(

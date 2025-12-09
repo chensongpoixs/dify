@@ -97,7 +97,7 @@ class DocumentAddByTextApi(DatasetApiResource):
     def post(self, tenant_id, dataset_id):
         """Create document by text."""
         payload = DocumentTextCreatePayload.model_validate(service_api_ns.payload or {})
-        args = payload.model_dump(exclude_none=True)
+        args = payload.model_dump(strict=True, exclude_none=True)
 
         dataset_id = str(dataset_id)
         tenant_id = str(tenant_id)

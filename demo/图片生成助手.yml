@@ -1,0 +1,131 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: agent-chat
+  name: 图片生成助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/moonshot:0.0.9@02018dd44e2a5ece9a29028969025eee866758dfab1469b419b4a23ffba5edea
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/stability:0.0.2@cccacbc21775ed15a0aab416ca3374d06c185bef2a0fbb9e687b9ec7312d85cd
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/stepfun_tool:0.0.2@3e34419edd285a68a1f1d757058e35d5476ae6bd607dac8c951478f2325e37f3
+    version: null
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 10
+    prompt: null
+    strategy: function_call
+    tools:
+    - enabled: true
+      isDeleted: false
+      notAuthor: false
+      provider_id: langgenius/stability/stability
+      provider_name: langgenius/stability/stability
+      provider_type: builtin
+      tool_label: 稳定扩散
+      tool_name: stability_text2image
+      tool_parameters:
+        aspect_ratio: ''
+        model: ''
+        negative_prompt: ''
+        prompt: ''
+        seeds: ''
+    - enabled: false
+      notAuthor: false
+      provider_id: langgenius/stepfun_tool/stepfun
+      provider_name: langgenius/stepfun_tool/stepfun
+      provider_type: builtin
+      tool_label: 阶跃星辰绘画
+      tool_name: stepfun
+      tool_parameters:
+        cfg_scale: ''
+        n: ''
+        prompt: ''
+        seed: ''
+        size: ''
+        steps: ''
+  annotation_reply:
+    enabled: false
+  chat_prompt_config:
+    prompt:
+    - role: system
+      text: ''
+  completion_prompt_config:
+    conversation_histories_role:
+      assistant_prefix: ''
+      user_prefix: ''
+    prompt:
+      text: ''
+  dataset_configs:
+    datasets:
+      datasets: []
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: moonshot-v1-8k
+    provider: langgenius/moonshot/moonshot
+  more_like_this:
+    enabled: false
+  opening_statement: ''
+  pre_prompt: 根据用户的提示， 使用工具 stability_text2image 绘画指定内容
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.5.0

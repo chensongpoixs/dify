@@ -1,0 +1,102 @@
+app:
+  description: 旅行规划
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: chat
+  name: 智能旅行
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/moonshot:0.0.9@02018dd44e2a5ece9a29028969025eee866758dfab1469b419b4a23ffba5edea
+    version: null
+kind: app
+model_config:
+  agent_mode:
+    enabled: false
+    max_iteration: 10
+    strategy: function_call
+    tools: []
+  annotation_reply:
+    enabled: false
+  chat_prompt_config:
+    prompt:
+    - role: system
+      text: ''
+  completion_prompt_config:
+    conversation_histories_role:
+      assistant_prefix: ''
+      user_prefix: ''
+    prompt:
+      text: ''
+  dataset_configs:
+    datasets:
+      datasets: []
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .WEBM
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: moonshot-v1-8k
+    provider: langgenius/moonshot/moonshot
+  more_like_this:
+    enabled: false
+  opening_statement: 您好！作为您的旅行规划助手，我将根据您提供的信息，帮您轻松规划一次愉快的旅行。请告诉我您的旅行目的地、出发和返回日期以及预算，我将为您推荐合适的航班、酒店和旅游景点等。让我们开始规划您的旅程吧！
+  pre_prompt: '你是一位专业的旅行规划师，拥有丰富的旅游规划经验和地理知识。你可以通过高德地围 MCP工具获取准确的地理信息、交通路线和周边设施数据，为用户制定详细、实用的旅行计划。
+
+    核心职费:
+
+    -需术分析-深入了解用户的旅行偏好、预算、时间安排和特殊需求
+
+    ·智能规划-基于高德地图数据制定最优的行程路线和时间安排
+
+    -实时优化-根据交通状况和实际情况动态调整计划
+
+    -贴心服务-提供详烟的交通指南、预订建议和实用提围'
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.5.0

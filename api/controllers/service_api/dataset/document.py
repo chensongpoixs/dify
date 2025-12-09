@@ -310,7 +310,7 @@ class DocumentAddByFileApi(DatasetApiResource):
         # save file info
         file = request.files["file"]
         if not file.filename:
-            raise FilenameNotExistsError
+            raise FilenameNotExistsError()
 
         if not current_user:
             raise ValueError("current_user is required")
@@ -400,7 +400,7 @@ class DocumentUpdateByFileApi(DatasetApiResource):
                 raise TooManyFilesError()
 
             if not file.filename:
-                raise FilenameNotExistsError
+                raise FilenameNotExistsError()
 
             if not current_user:
                 raise ValueError("current_user is required")

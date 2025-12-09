@@ -57,7 +57,7 @@ class WorkflowToolConfigurationUtils:
         """
         check is synced
 
-        raise ValueError if not synced
+        raise ValueError() if not synced
         """
         variable_names = [variable.variable for variable in variables]
 

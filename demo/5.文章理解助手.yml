@@ -1,0 +1,328 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 文章理解助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/moonshot:0.0.9@02018dd44e2a5ece9a29028969025eee866758dfab1469b419b4a23ffba5edea
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      - document
+      - audio
+      - video
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1765269926347-source-1765270357512-target
+      source: '1765269926347'
+      sourceHandle: source
+      target: '1765270357512'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1765270357512-source-llm-target
+      source: '1765270357512'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: llm-source-1765270412754-target
+      source: llm
+      sourceHandle: source
+      target: '1765270412754'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1765270412754-source-answer-target
+      source: '1765270412754'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 73
+      id: '1765269926347'
+      position:
+        x: -9
+        y: 335
+      positionAbsolute:
+        x: -9
+        y: 335
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1765270357512'
+          - text
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: moonshot-v1-8k
+          provider: langgenius/moonshot/moonshot
+        prompt_template:
+        - id: 4f17e785-8207-4ff2-a8a6-ea3d0bcec6b9
+          role: system
+          text: '阅读以下文章内容并执行任务
+
+
+            {{文档提取器结果的变量}}
+
+
+            #任务
+
+            -**主要目标**:全面解析文章的结构。
+
+            -**目标**:详细说明文章每个部分的内容。
+
+            -**要求**:尽可能详细地分析。
+
+            **限制**:无特别的格式限制，但需要保持解析的条理性和逻辑性。
+
+            -**预期输出**:文章结构的详细解析，包括每个部分的主要内容和作用。
+
+            #推理顺序
+
+            **推理部分**:通过仔细阅读文章，识别和解析其结构。
+
+            **结论部分**:提供每个部分的具体内容和作用。
+
+            #输出格式
+
+            **解析格式**:每个部分应以标题形式列出，后跟对该部分内容的详细说明。
+
+            **结构形式**:Markdown，以增强可读性。
+
+            **具体说明**:每个部分的内容和作用，包括但不限于引言、正文、结论、引用等
+
+            #示例输出
+
+            ##示例文章解析
+
+            ###引言
+
+            -**内容**:介绍研究的背景、目的和重要性。
+
+            -**作用**:吸引读者的注意力，为文章内容提供上下文。
+
+            ###方法
+
+            **内容**:描述研究的具体方法和步骤，包括实验设计、数据收集和分析技术。
+
+            **作用**:使读者了解研究的科学性和可重复性。
+
+            ###结果
+
+            -**内容**:展示研究的主要发现和数据。
+
+            -**作用**:提供研究结论的证据基础。
+
+            ###讨论
+
+            **内容**:解释结果的意义，对比其他研究，提出可能的改进方向。
+
+            **作用**:帮助读者理解结果的广泛影响和未来研究的潜力。
+
+            ###结论
+
+            **内容**:总结研究的主要发现和贡献。
+
+            **作用**:强化文章的核心信息，提供明确的结论。'
+        selected: false
+        title: 结构提取
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: llm
+      position:
+        x: 434
+        y: 422
+      positionAbsolute:
+        x: 434
+        y: 422
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1765270412754.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: answer
+      position:
+        x: 1050
+        y: 373
+      positionAbsolute:
+        x: 1050
+        y: 373
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_array_file: true
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 104
+      id: '1765270357512'
+      position:
+        x: 209
+        y: 613
+      positionAbsolute:
+        x: 209
+        y: 613
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - llm
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: moonshot-v1-8k
+          provider: langgenius/moonshot/moonshot
+        prompt_template:
+        - id: 6e8ee52d-44b2-42f2-a2af-5b33bfb71440
+          role: system
+          text: "阅读以下文章内容并执行任务\n\n{{结构提取的输出}}\n \n{{文档提取器结果的变量}}\n \n-**主要目标**:全面解析文章的结构。\n\
+            -**目标**:详细说明文章每个部分的内容。\n-**要求**:尽可能详细地分析。\n**限制**:无特别的格式限制，但需要保持解析的条理性和逻辑性。\n\
+            -**预期输出**:文章结构的详细解析，包括每个部分的主要内容和作用。\n#推理顺序\n**推理部分**:通过仔细阅读文章，识别和解析其结构。\n\
+            **结论部分**:提供每个部分的具体内容和作用。\n#输出格式\n**解析格式**:每个部分应以标题形式列出，后跟对该部分内容的详细说明。\n\
+            **结构形式**:Markdown，以增强可读性。\n**具体说明**:每个部分的内容和作用，包括但不限于引言、正文、结论、引用等\n\n\
+            #任务\n**主要目标**:全面阅读上文，针对文章各个部分提出尽可能多的问题。\n**要求**:问题要有意义和价值，值得思考。\n**限制**:无特定限制。\n\
+            **预期输出**:一系列针对文章各个部分的问题，每个问题都应有深度和思考价值。\n#推理顺序\n**推理部分**:全面阅读文章，分析文章各个部分的内容，思考每个部分可能引发的深层次问题。\n\
+            **结论部分**:提出有意义和有价值的问题，确保问题能够引发深入的思考。\n输出格式#\n**格式**:每个问题单独成行，编号列出。\n针对文章的各个部分(如引言、背景、方法、结果、讨论、结论等)提出问题\n"
+        selected: false
+        title: 问题抛出
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1765270412754'
+      position:
+        x: 678
+        y: 613
+      positionAbsolute:
+        x: 678
+        y: 613
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -199
+      y: 183
+      zoom: 1
+  rag_pipeline_variables: []

@@ -76,12 +76,12 @@ def _fetch_override_credentials(
                             if isinstance(raw, dict) and raw:
                                 return raw
                     except Exception as e:
-                        logger.warning(f"Failed to fetch credentials for {token_or_id} {e}")
+                        logger.warning("Failed to fetch credentials for %s %s", token_or_id, e)
                 return credentials
         except ValueError:
             explicit_not_found = True
         except Exception as e:
-            logger.warning(f"Failed to fetch credentials for {token_or_id} {e}")
+            logger.warning("Failed to fetch credentials for %s %s", token_or_id, e)
 
         # Next, try public model-level API
         try:
@@ -150,7 +150,7 @@ def _fetch_override_credentials(
 
 
 def fetch_model_config(
-    tenant_id: str, node_data_model: ModelConfig, workflow_credential_override: Optional[CredentialOverride] = None
+    tenant_id: str, node_data_model: ModelConfig, workflow_credential_override: CredentialOverride | None = None
 ) -> tuple[ModelInstance, ModelConfigWithCredentialsEntity]:
     if not node_data_model.mode:
         raise LLMModeRequiredError("LLM mode is required.")

@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'use-context-selector'
-import useSWR from 'swr'
 import { RiDeleteBinLine, RiUploadCloud2Line } from '@remixicon/react'
 import DocumentFileIcon from '../../common/document-file-icon'
 import cn from '@/utils/classnames'
@@ -11,14 +10,13 @@ import { ToastContext } from '@/app/components/base/toast'
 import SimplePieChart from '@/app/components/base/simple-pie-chart'
 
 import { upload } from '@/service/base'
-import { fetchFileUploadConfig } from '@/service/common'
-import { fetchSupportFileTypes } from '@/service/datasets'
 import I18n from '@/context/i18n'
 import { LanguagesSupported } from '@/i18n-config/language'
 import { IS_CE_EDITION } from '@/config'
 import { Theme } from '@/types/app'
 import useTheme from '@/hooks/use-theme'
 import { getFileUploadErrorMessage } from '@/app/components/base/file-uploader/utils'
+import { useFileSupportTypes, useFileUploadConfig } from '@/service/use-common'
 
 type IFileUploaderProps = {
   fileList: FileItem[]
@@ -48,8 +46,8 @@ const FileUploader = ({
   const fileUploader = useRef<HTMLInputElement>(null)
   const hideUpload = notSupportBatchUpload && fileList.length > 0
 
-  const { data: fileUploadConfigResponse } = useSWR({ url: '/files/upload' }, fetchFileUploadConfig)
-  const { data: supportFileTypesResponse } = useSWR({ url: '/files/support-type' }, fetchSupportFileTypes)
+  const { data: fileUploadConfigResponse } = useFileUploadConfig()
+  const { data: supportFileTypesResponse } = useFileSupportTypes()
   const supportTypes = supportFileTypesResponse?.allowed_extensions || []
   const supportTypesShowNames = (() => {
     const extensionMap: { [key: string]: string } = {

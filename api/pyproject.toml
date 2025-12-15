@@ -32,7 +32,7 @@ dependencies = [
     "jieba==0.42.1",
     "json-repair>=0.41.1",
     "langfuse~=2.51.3",
-    "langsmith~=0.1.77",
+    "langsmith~=0.4.59",
     "markdown~=3.5.1",
     "mlflow-skinny>=3.0.0",
     "numpy~=1.26.4",
